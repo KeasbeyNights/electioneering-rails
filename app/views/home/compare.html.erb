@@ -1,32 +1,35 @@
+<script type="text/javascript">
+  jQuery(document).ready( function() {
+    $(".hoverable").children(".stances").hide();
+    $(".hoverable").hover(
+      function() { $(this).children(".stances").show(); 
+        $(this).children(".name").hide(); },
+      function() { $(this).children(".name").show(); 
+        $(this).children(".stances").hide(); }
+    );
+  });
+</script>
+
 <center><h1>
   <%= @white.name unless @white.nil? %> vs. <%= @black.name unless @black.nil? %>
   </h1>
 
   <br />
 
-  <table class="table">
-    <tr>
-      <td width="33%"><b><center><%= @white.name unless @white.nil? %></center></b></td>
-      <td width="33%"><center><b>Issue</b></center></td>
-      <td width="33%"><center><b><%= @black.name unless @black.nil? %></center></b></td>
-    </tr>
-    
-    <% @issue_names = @white.issues.map { |x| x.name } & 
-      @black.issues.map { |x| x.name } %>
-    <% @issue_names.each do |name| %>
-    <tr>
-      <td width="33%"><center>
-        <%= Issue.first(:name => name, :politician_id => @white._id).stance %>
-      </center></td>
+  <% @issue_names = @white.issues.map { |x| x.name } & 
+    @black.issues.map { |x| x.name } %>
+  <% @issue_names.each do |name| %>
+    <span class="hoverable">
+        <h2 class="name"><%= name %></h2>
+        <table class="stances">
+          <tr>
+            <td width="450px"><h2><%= Issue.first(:name => name, 
+            :politician_id => @white._id).stance %></h2></td>
 
-      <td width="33%"><center>
-        <b><%= name %></b>
-      </center></td>
-
-      <td width="33%"><center>
-        <%= Issue.first(:name => name, :politician_id => @black._id).stance %>
-      </center></td>
-    </tr>
-    <% end %>
-  </table>
+            <td><h2><%= Issue.first(:name => name, 
+            :politician_id => @black._id).stance %></h2></td>
+          </tr>
+        </table>
+    </span> <br />
+  <% end %>
 </center>

@@ -12,5 +12,11 @@ class HomeController < ApplicationController
     #Issue.create(:politician_id => @white._id, :name => "Gun Control", 
      # :stance => "regulate")
     @black = Politician.first(:name => params[:black])
+    #Issue.create(:politician_id => @black._id, :name => "Abortion", 
+     # :stance => "pro-life")
+    #Issue.create(:politician_id => @black._id, :name => "Gay Marriage", 
+     # :stance => "oppose")
+    #Issue.create(:politician_id => @black._id, :name => "Gun Control", 
+     # :stance => "deregulate")
   end
 end

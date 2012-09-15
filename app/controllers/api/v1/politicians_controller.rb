@@ -12,7 +12,19 @@ module Api
         else
           @white = Politician.where(:name => params["names"]["white"]).first
           @black = Politician.where(:name => params["names"]["black"]).first
-          respond_with [@white, @white.issues, @black, @black.issues].to_json
+
+          res = Hash.new
+          @issue_names = @white.issues.map { |x| x.name } & 
+            @black.issues.map { |x| x.name }
+
+          @issue_names.each do |n|
+            res[n] = Hash.new
+            res[n][@white.name] = @white.issues.first(:name => n).stance
+            res[n][@black.name] = @black.issues.first(:name => n).stance
+            res[n]["color"] = "blue"
+          end
+
+          respond_with res
         end
       end
     end
