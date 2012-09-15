@@ -1,0 +1,32 @@
+<center><h1>
+  <%= @white.name unless @white.nil? %> vs. <%= @black.name unless @black.nil? %>
+  </h1>
+
+  <br />
+
+  <table class="table">
+    <tr>
+      <td width="33%"><b><center><%= @white.name unless @white.nil? %></center></b></td>
+      <td width="33%"><center><b>Issue</b></center></td>
+      <td width="33%"><center><b><%= @black.name unless @black.nil? %></center></b></td>
+    </tr>
+
+    <% @issue_names = @white.issues.map { |x| x.name } & 
+      @black.issues.map { |x| x.name } %>
+    <% @issue_names.each do |name| %>
+    <tr>
+      <td width="33%"><center>
+        <%= Issue.first(:name => name, :politician_id => @white.id).stance %>
+      </center></td>
+
+      <td width="33%"><center>
+        <b><%= name %></b>
+      </center></td>
+
+      <td width="33%"><center>
+        <%= Issue.first(:name => name, :politician_id => @black.id).stance %>
+      </center></td>
+    </tr>
+    <% end %>
+  </table>
+</center>

@@ -1,0 +1,13 @@
+<%= form_for(@politician, :url => { :action => "compare" }) do |f| %>
+  <div class="field">
+    <%= text_field_tag :candidate1, nil, :placeholder => "Candidate 1" %>
+  </div>
+
+  <div class="field">
+    <%= text_field_tag :candidate2, nil, :placeholder => "Candidate 2" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Match!" %>
+  </div>
+<% end %>

@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
 	def index
-    Politician.create ({:name => 'Mitt Romney', :party => 'Republican', 
-      :type => 'president'})
+    @politician = Politician.new
 	end
+
+  def compare
+    @white = Politician.first(:name => params[:candidate1])
+    @black = Politician.first(:name => params[:candidate2])
+  end
 end
