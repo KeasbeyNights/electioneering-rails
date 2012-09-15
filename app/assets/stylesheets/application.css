@@ -12,3 +12,7 @@
  *= require_twitter/bootstrap
  *= require_tree .
 */
+
+.field {
+  display: inline-block;
+}

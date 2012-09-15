@@ -1,34 +1,55 @@
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        $('#auto_complete').typeahead({source: autocomplete_items});
-    });
+  jQuery(document).ready(function() {
+    $('#typeahead').typeahead({source: typeahead_items});
+  });
+
+  jQuery(document).ready(function() {
+    $('#typeahead2').typeahead({source: typeahead_items});
+  });
+
+  $(document).ready(function() {
+    $("#new_politician").validate();
+  });
+
+  $(document).ready(function(){
+    var white = find($('input[type="text"]'))[0];
+    var black = find($('input[type="text"]'))[1];
+
+    $('input[type="submit"]').attr('disabled','disabled');
+
+    /*$(black).keyup(function(){
+      if (!$('#new_politician').valid()){
+        $('input[type="submit"]').attr('disabled','disabled');
+      } else
+      {
+        $('input[type="submit"]').removeAttr('disabled');
+      }*/
+    /*if (!$('#new_politician').valid()) {
+      $('input[type="submit"]').attr('disabled', 'disabled');
+    } else {
+      $('input[type="submit"]').removeAttr('disabled');
+    }
+    }); */
+  });
 </script>
 
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        $('#auto_complete2').typeahead({source: autocomplete_items});
-    });
-</script>
-
-
-<%= javascript_tag "var autocomplete_items = 
-  #{ Politician.all.map {|x| x.name}.to_json };" %>
-
-<%= javascript_tag "var autocomplete_items2 = 
+<%= javascript_tag "var typeahead_items = 
   #{ Politician.all.map {|x| x.name}.to_json };" %>
 
 <%= form_for(@politician, :url => { :action => "compare" }) do |f| %>
   <div class="field">
     <%= text_field_tag :candidate1, nil, :placeholder => "Candidate 1", 
-    :id => "auto_complete", :autocomplete => "off"%>
+    :id => "typeahead", :autocomplete => "off", :class => "required" %>
   </div>
+
+  <strong>&nbsp; vs. &nbsp;</strong>
 
   <div class="field">
     <%= text_field_tag :candidate2, nil, :placeholder => "Candidate 2", 
-    :id => "auto_complete2", :autocomplete => "off" %>
+    :id => "typeahead2", :autocomplete => "off", :class => "required" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Match!" %>
+    <%= f.submit "Matchup!", :class => "btn-primary btn-large" %>
   </div>
 <% end %>

@@ -3,7 +3,7 @@ class Politician
 
   key :name, String
   key :party, String
-  key :type, String
+  key :candidate_type, String
 
   many :issues
 end
