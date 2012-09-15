@@ -68,10 +68,11 @@ if __name__ == "__main__":
   MONGODB_HOST = 'mongodb://stingray:pennapps@ds037587-a.mongolab.com:37587/heroku_app7603312'
   MONGODB_DATABASE = 'heroku_app7603312'
   connect(MONGODB_DATABASE, host=MONGODB_HOST)
+  global titles
   titles = get_titles()
   result = get_pages(titles.keys())
   for title in titles.keys():
-    data = result[title]
+    parse_data(politician, result[title])
     print data.split('\n')[0]
     issue = Issue()
     issue.name = 'Sexual Education'

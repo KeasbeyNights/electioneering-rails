@@ -15,3 +15,7 @@
 /tmp
 
 *.pyc
+
+/app/controllers/api/v1/politicians_controller.rb
+
+/config/mongo.yml
