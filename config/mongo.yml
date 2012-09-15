@@ -1,7 +1,5 @@
 defaults: &defaults
   uri: <%= ENV['mongodb://stingray:pennapps@ds037627-a.mongolab.com:37627/heroku_app7603312'] %>
-  host: ds037627-a.mongolab.com
-  port: 37627
   database: heroku_app7603312
   username: <%= ENV['stingray'] %>
   password: <%= ENV['pennapps'] %>
@@ -15,3 +13,5 @@ test:
 # set these environment variables on your prod server
 production:
   <<: *defaults
+  host: ds037627-a.mongolab.com
+  port: 37627
