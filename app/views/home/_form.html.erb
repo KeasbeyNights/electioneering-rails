@@ -10,6 +10,7 @@
     });
 </script>
 
+
 <%= javascript_tag "var autocomplete_items = 
   #{ Politician.all.map {|x| x.name}.to_json };" %>
 
@@ -19,12 +20,12 @@
 <%= form_for(@politician, :url => { :action => "compare" }) do |f| %>
   <div class="field">
     <%= text_field_tag :candidate1, nil, :placeholder => "Candidate 1", 
-    :id => "auto_complete" %>
+    :id => "auto_complete", :autocomplete => "off"%>
   </div>
 
   <div class="field">
     <%= text_field_tag :candidate2, nil, :placeholder => "Candidate 2", 
-    :id => "auto_complete2" %>
+    :id => "auto_complete2", :autocomplete => "off" %>
   </div>
 
   <div class="actions">
