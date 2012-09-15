@@ -10,9 +10,9 @@ module Api
           params["names"]["black"].nil?
           respond_with Politician.all
         else
-          @white = Politician.where(:name => params["names"]["white"])
-          @black = Politician.where(:name => params["names"]["black"])
-          respond_with [@white, @black].to_json
+          @white = Politician.where(:name => params["names"]["white"]).first
+          @black = Politician.where(:name => params["names"]["black"]).first
+          respond_with [@white, @white.issues, @black, @black.issues].to_json
         end
       end
     end

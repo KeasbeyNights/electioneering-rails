@@ -10,13 +10,13 @@
       <td width="33%"><center><b>Issue</b></center></td>
       <td width="33%"><center><b><%= @black.name unless @black.nil? %></center></b></td>
     </tr>
-
+    
     <% @issue_names = @white.issues.map { |x| x.name } & 
       @black.issues.map { |x| x.name } %>
     <% @issue_names.each do |name| %>
     <tr>
       <td width="33%"><center>
-        <%= Issue.first(:name => name, :politician_id => @white.id).stance %>
+        <%= Issue.first(:name => name, :politician_id => @white._id).stance %>
       </center></td>
 
       <td width="33%"><center>
@@ -24,7 +24,7 @@
       </center></td>
 
       <td width="33%"><center>
-        <%= Issue.first(:name => name, :politician_id => @black.id).stance %>
+        <%= Issue.first(:name => name, :politician_id => @black._id).stance %>
       </center></td>
     </tr>
     <% end %>

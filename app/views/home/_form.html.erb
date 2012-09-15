@@ -1,7 +1,7 @@
 <script type="text/javascript">
   jQuery.validator.addMethod("isCandidate", function(value) {
-    var candidates = <%= Politician.all.map {|x| x.name.upcase }.to_json.html_safe %>;
-    var validCandidate = $.inArray(value.toUpperCase(), candidates);
+    var candidates = <%= Politician.all.map {|x| x.name }.to_json.html_safe %>;
+    var validCandidate = $.inArray(value, candidates);
 
     if (validCandidate == -1) {
       return false;
