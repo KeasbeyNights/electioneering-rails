@@ -1,4 +1,15 @@
 <script type="text/javascript">
+  jQuery.validator.addMethod("isCandidate", function(value) {
+    var candidates = <%= Politician.all.map {|x| x.name.upcase }.to_json.html_safe %>;
+    var validCandidate = $.inArray(value.toUpperCase(), candidates);
+
+    if (validCandidate == -1) {
+      return false;
+    } else {
+      return true;
+    }
+  })
+
   jQuery(document).ready(function() {
     $('#typeahead').typeahead({source: typeahead_items});
   });
@@ -16,20 +27,6 @@
     var black = find($('input[type="text"]'))[1];
 
     $('input[type="submit"]').attr('disabled','disabled');
-
-    /*$(black).keyup(function(){
-      if (!$('#new_politician').valid()){
-        $('input[type="submit"]').attr('disabled','disabled');
-      } else
-      {
-        $('input[type="submit"]').removeAttr('disabled');
-      }*/
-    /*if (!$('#new_politician').valid()) {
-      $('input[type="submit"]').attr('disabled', 'disabled');
-    } else {
-      $('input[type="submit"]').removeAttr('disabled');
-    }
-    }); */
   });
 </script>
 
@@ -38,15 +35,15 @@
 
 <%= form_for(@politician, :url => { :action => "compare" }) do |f| %>
   <div class="field">
-    <%= text_field_tag :candidate1, nil, :placeholder => "Candidate 1", 
-    :id => "typeahead", :autocomplete => "off", :class => "required" %>
+    <%= text_field_tag :white, nil, :placeholder => "Candidate 1", 
+    :id => "typeahead", :autocomplete => "off", :class => "isCandidate" %>
   </div>
 
   <strong>&nbsp; vs. &nbsp;</strong>
 
   <div class="field">
-    <%= text_field_tag :candidate2, nil, :placeholder => "Candidate 2", 
-    :id => "typeahead2", :autocomplete => "off", :class => "required" %>
+    <%= text_field_tag :black, nil, :placeholder => "Candidate 2", 
+    :id => "typeahead2", :autocomplete => "off", :class => "isCandidate" %>
   </div>
 
   <div class="actions">

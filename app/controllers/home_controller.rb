@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 	end
 
   def compare
-    @white = Politician.first(:name => params[:candidate1])
-    @black = Politician.first(:name => params[:candidate2])
+    @white = Politician.first(:name => params[:white])
+    @black = Politician.first(:name => params[:black])
   end
 end
