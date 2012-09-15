@@ -64,6 +64,9 @@ def test_indexing(index):
     conn.index({'title': title, 'content': content}, index, 'wikipage')
     n += 1
 
+def parse_data(poli, data):
+  print data
+
 if __name__ == "__main__":
   MONGODB_HOST = 'mongodb://stingray:pennapps@ds037587-a.mongolab.com:37587/heroku_app7603312'
   MONGODB_DATABASE = 'heroku_app7603312'
@@ -72,14 +75,7 @@ if __name__ == "__main__":
   titles = get_titles()
   result = get_pages(titles.keys())
   for title in titles.keys():
-    parse_data(politician, result[title])
-    print data.split('\n')[0]
-    issue = Issue()
-    issue.name = 'Sexual Education'
-    issue.stance = data.split('\n')[0]
-    politician = titles[title]
-    issue.politician_id = politician.id
-    issue.save()
+    parse_data(title, result[title])
 
 
   
