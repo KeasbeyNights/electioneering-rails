@@ -22,6 +22,7 @@ body {
  background-size: 1440px 800px;
  background-repeat:repeat;
  display: compact;
+}
 table {
   table-layout:fixed;
 }
