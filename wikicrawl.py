@@ -151,8 +151,11 @@ def parse_data(poli, data):
 
 
 if __name__ == "__main__":
-  MONGODB_HOST = 'mongodb://stingray:pennapps@ds037587-a.mongolab.com:37587/heroku_app7603312'
-  MONGODB_DATABASE = 'heroku_app7603312'
+  db_file = open('db.txt')
+  lines = db_file.readlines()
+  db_file.close()
+  MONGODB_HOST = lines[0].strip()
+  MONGODB_DATABASE = lines[1].strip()
   connect(MONGODB_DATABASE, host=MONGODB_HOST)
   global titles
   global keywords
