@@ -1,2 +1,2 @@
-Barack Obama	president	Democrat
-Mitt Romney	president	Republican
+Barack Obama	president	US	Democrat
+Mitt Romney	governor	Massachusetts	Republican
