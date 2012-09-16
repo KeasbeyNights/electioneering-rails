@@ -1,5 +1,6 @@
 ElectioneeringRails::Application.routes.draw do
   match "compare" => "home#compare"
+  match "api" => "home#api"
   match "admin" => "admin#index"
   match "create" => "admin#create"
 

@@ -1,0 +1,24 @@
+<h4>
+  Electioneering has an API for easy access to our list of all candidates and to the
+  comparative stances of two candidates. API call results are JSON hashes. <br /> <br />
+
+  To access our list of all candidates, make the following API call: <br /> <br />
+
+  <pre>http://electioneering.us/api/v1/politicians/?names[auth]=ACCESS TOKEN</pre>
+
+  Output will look like this: <br /> <br />
+
+  <pre>[{"candidate_type":"president","id":"5055cc8ee61d1ab2f0000001","name":"Barack Obama","party":"Democrat"},{"candidate_type":"president","id":"5055cf18e61d1ab2f000000d","name":"Mitt Romney","party":"Republican"},{"candidate_type":"president","id":"5055d5c0e61d1ab2f0000019","name":"Paul Ryan","party":"Republican"}]</pre>
+
+  To see the comparisons between two candidates and our intenal colorization system, 
+  make the following API call: <br /> <br />
+
+  <pre>http://electioneering.us/api/v1/politicians/?names[white]=CANDIDATE 1&names[black]=CANDIDATE 2&names[auth]=ACCESS TOKEN</pre>
+
+  Output will look like this: <br /> <br />
+
+  <pre>[{"issueName":"Abortion","whiteStance":"pro-choice","blackStance":"pro-life","color":"red"},{"issueName":"Education","whiteStance":"public schools","blackStance":"privatization","color":"red"},{"issueName":"Energy","whiteStance":"renewable sources","blackStance":"renewable sources","color":"green"},{"issueName":"Entitlements","whiteStance":"uses entitlements as an economic booster","blackStance":"privatization of government programs","color":"red"},{"issueName":"Gay Marriage","whiteStance":"supports","blackStance":"opposes","color":"red"},{"issueName":"Gun Policy","whiteStance":"no concealed carry","blackStance":"concealed carry","color":"yellow"},{"issueName":"Health Care","whiteStance":"goverment-run","blackStance":"privatized","color":"red"},{"issueName":"Immigration","whiteStance":"more open borders","blackStance":"stricter borders","color":"red"},{"issueName":"Jobs","whiteStance":"supported TARP, Lilly Ledbetter","blackStance":"anti-union","color":"red"},{"issueName":"Taxes","whiteStance":"raise on wealthy","blackStance":"decrease all tax rates","color":"red"},{"issueName":"Special Interest","whiteStance":"","blackStance":"","color":"blue"}]</pre>
+
+  For an access token, send an email to scheiber [at] wharton [dot] upenn [dot] edu.
+
+</h4>
