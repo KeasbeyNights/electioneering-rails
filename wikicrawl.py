@@ -95,7 +95,7 @@ def parse_data(poli, data):
       url_topic = topic.replace(' ', '_')
       url = 'http://www.thepoliticalguide.com/Profiles/%s/%s/%s/Views/%s' %(cand_type, 
         state, title_url, url_topic)
-      data = urllib2.urlopen(url).read().encode('utf-8')
+      data = urllib2.urlopen(url).read()
       RE = re.compile(r'<h2>Summary</h2>.*?<p.*?>(.*?)<', re.DOTALL)
       summ_list = RE.findall(data)
       if len(summ_list) > 0:
@@ -111,17 +111,17 @@ def parse_data(poli, data):
             break
       if stance == "" and not sum == "":
         stance = sent[0]
-      issue = Issue.objects(name = topic, politician_id=titles[poli][0].id).first()
-      if not issue:
+      issue = Issue.objects(Q(name = topic) & Q(politician_id=titles[poli][0].id)).first()
+      if issue is None:
         issue = Issue()
         if(topic == 'The Second Amendment'):
           issue.name = 'Gun Policy'
         elif (topic == 'TARP'):
           issue.name = 'Jobs'
         else:
-          issue = topic
+          issue.name = topic
       print stance.encode('utf-8')
-      issue.stance = stance.encode('utf-8')
+      issue.stance = stance
       f.write(stance)
       issue.politician_id = titles[poli][0].id
       issue.save()

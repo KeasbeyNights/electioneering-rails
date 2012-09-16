@@ -1,6 +1,7 @@
+<!--
 <link rel="stylesheet/less" href="style.less" type="text/css" />
 <script src="http://lesscss.googlecode.com/files/less-1.0.21.min.js"></script>
-
+-->
 <script type="text/javascript">
   jQuery.validator.addMethod("isCandidate", function(value) {
     var candidates = <%= Politician.all.map {|x| x.name }.to_json.html_safe %>;
