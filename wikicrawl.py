@@ -6,7 +6,9 @@ import traceback
 import wikiparse
 from bs4 import BeautifulSoup
 from mongoengine import *
-
+import re
+import nltk.data
+import html5lib
 
 
 class Politician(Document):
@@ -42,14 +44,20 @@ def get_titles():
 
 def get_pages(titles):
   result = {}
+  data = ""
   for title in titles:
     print 'fetching', title
-    title_url = urllib.quote(title.encode('utf8'))
+    firstlast = title.split(' ')
+    #print firstlast
+    title_url = firstlast[0] + '_' + firstlast[1]
+    url = 'http://www.thepoliticalguide.com/Profiles/President/US/%s/' % title_url
+    #print url
     try:
-      data = json.loads(urllib2.urlopen('http://en.wikipedia.org/w/api.php?action=query&prop=revisions&titles=%s&rvprop=content&format=json' % title_url).read())
+      data = urllib2.urlopen(url).read()
+      #print data    
     except:
       traceback.print_exc()
-    result[title] = data['query']['pages'].values()[0]['revisions'][0]['*']
+    result[title] = data
   return result
 
 
@@ -65,7 +73,37 @@ def test_indexing(index):
     n += 1
 
 def parse_data(poli, data):
-  print data
+  RE = re.compile(r'<div class=\"repitem\"><b>Positions that we are tracking for this rep: </b>(.+?)</div>')
+  count = 1
+  dat = RE.findall(data)
+  issues =  dat[0].split(', ')
+  print issues
+  filename = poli.lower().replace(' ', '') + '.txt'
+  f = open(filename,'w')
+  topics = ['Abortion', 'Education', 'Energy and the Environment', 'Foreign Policy', 
+    'Gay Marriage', 'Health Care', 'Immigration', 'Social Security', 'Taxes', 'The American Jobs Act', 
+    'The Economy', 'The War in Iraq']
+  for topic in dat:
+    if topic in topics:
+      f.write(topic)
+      issue = Issue.objects(name = topic).first()
+      if not issue:
+        issue = Issue()
+        issue.name = topic
+      count+=1
+      stance = dat[count].strip('=')
+      repl = re.compile(r'(\[\[.*?\]\])|(\{\{.*?\}\})|(<ref.*?>)|</ref>')
+      stance = repl.sub('', stance)
+      sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
+      for token in sent_detector.tokenize(stance):
+        f.write(token.encode('ascii','ignore') + '\n')
+      issue.politician_id = titles[poli].id
+      issue.save()
+      f.write('\n\n')
+      break
+    count+=1
+    print '------------------------------------------------'
+
 
 if __name__ == "__main__":
   MONGODB_HOST = 'mongodb://stingray:pennapps@ds037587-a.mongolab.com:37587/heroku_app7603312'
