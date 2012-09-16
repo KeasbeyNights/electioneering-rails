@@ -1,0 +1,13 @@
+Daniel Inouye	senator	Hawaii	Hawaii
+Daniel Akaka	senator	Hawaii	Hawaii
+Dianne Feinstein	senator	California	California
+John McCain	senator	Arizona	Arizona
+Harry Reid	senator	Nevada	Nevada
+Patrick Leahy	senator	Vermont	Vermont
+Mitch McConnell	senator	Kentucky	Kentucky
+John Kerry	senator	Massachusetts	Massachusetts
+Dick Durbin	senator	Illinois	Illinois
+Jim Webb	senator	Virginia	Virginia
+Al Franken	senator	Minnesota	Minnesota
+Mark Warner	senator	Virginia	Virginia
+Marco Rubio	senator	Florida	Florida
