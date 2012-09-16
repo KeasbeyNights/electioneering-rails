@@ -17,14 +17,17 @@ module Api
           @issue_names = @white.issues.map { |x| x.name } & 
             @black.issues.map { |x| x.name }
 
+          i = 0
           @issue_names.each do |n|
-            res[n] = Hash.new
-            res[n][@white.name] = @white.issues.first(:name => n).stance
-            res[n][@black.name] = @black.issues.first(:name => n).stance
-            res[n]["color"] = "blue"
+            res[i] = Hash.new
+            res[i]["issue name"] = n
+            res[i][@white.name] = @white.issues.first(:name => n).stance
+            res[i][@black.name] = @black.issues.first(:name => n).stance
+            res[i]["color"] = "blue"
+            i = i + 1
           end
 
-          respond_with res
+          respond_with res.to_a
         end
       end
     end
