@@ -6,9 +6,9 @@ Electioneering will be able to take any two candidates or incumbents and compare
 
 You can download our app and visit our website at www.electioneering.us to access Electioneering.
 
-Ashu Goel - asgoel@seas.upenn.edu
-Jeff Grimes - jgrimes@wharton.upenn.edu
-Teddy Guenin - guenint@wharton.upenn.edu
+Ashu Goel - asgoel@seas.upenn.edu <br />
+Jeff Grimes - jgrimes@wharton.upenn.edu <br />
+Teddy Guenin - guenint@wharton.upenn.edu <br />
 Max Scheiber - scheiber@wharton.upenn.edu
 
 Third-party libraries: Twitter Bootstrap, MongoDB, jQuery Validate plugin
