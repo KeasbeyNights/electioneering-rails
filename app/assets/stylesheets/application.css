@@ -13,8 +13,10 @@
  *= require_tree .
 */
 
-.field{
-
+.field {
   display: inline-block;
+}
 
+table {
+  table-layout:fixed;
 }

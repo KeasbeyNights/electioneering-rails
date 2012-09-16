@@ -16,18 +16,30 @@
 
   <br />
 
-  <% @issue_names = @white.issues.reject {|x| x.eql?("") }.map { |x| x.name } & 
-    @black.issues.reject {|x| x.eql?("") }.map { |x| x.name } %>
+  <% @issue_names = @white.issues.reject {|x| x.eql?("") || x.eql?(" ") }.map { |x| x.name } & 
+    @black.issues.reject {|x| x.eql?("") || x.eql?(" ") }.map { |x| x.name } %>
   <% @issue_names.each do |name| %>
     <span class="hoverable">
-        <h2 class="name"><%= name %></h2>
+        <% @w_issue = Issue.first(:name => name, :politician_id => @white._id) %>
+        <% @b_issue = Issue.first(:name => name, :politician_id => @black._id) %>
+        <h2 class="name">
+          <%= name %>
+          <% @color = @w_issue.colorize(@b_issue) %>
+          <% if @color.eql?('green') %>
+            <span class="badge badge-success">&nbsp;</span>
+          <% elsif @color.eql?("red") %>
+            <span class="badge badge-important">&nbsp;</span>
+          <% elsif @color.eql?('yellow') %>
+            <span class="badge badge-warning">&nbsp;</span>
+          <% else %>
+            <span class="badge badge-info">&nbsp;</span>
+          <% end %>
+        </h2>
         <table class="stances">
           <tr>
-            <td style="padding:0 10px 0 0;" width="450px"><h4><%= Issue.first(:name => name, 
-            :politician_id => @white._id).stance %></h4></td>
+            <td style="padding:0 10px 0 0;" width="450px"><h4><%= @w_issue.stance %></h4></td>
 
-            <td style="padding:0 0 0 10px;" width="450px"><h4><%= Issue.first(:name => name, 
-            :politician_id => @black._id).stance %></h4></td>
+            <td style="padding:0 0 0 10px;" width="450px"><h4><%= @b_issue.stance %></h4></td>
           </tr>
         </table>
     </span> <br />
