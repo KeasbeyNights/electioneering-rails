@@ -16,4 +16,5 @@
 
 *.pyc
 /views/admin/index.html.erb
-
+*.txt
+*.rdoc
