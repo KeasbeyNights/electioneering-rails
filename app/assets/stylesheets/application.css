@@ -13,11 +13,8 @@
  *= require_tree .
 */
 
-.field {
+.field{
+
   display: inline-block;
+
 }
-    @font-face
-    {
-        font-family : "Franchise-Bold";
-        src: url('Franchise-Bold.woff');
-    }
