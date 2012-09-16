@@ -13,6 +13,11 @@
 <body>
 
 <div class="container">
+
+  <% if !request.env['PATH_INFO'].eql?('/') %>
+    <a href="/" style="color:white; hover:white; visited:white;">Go Back</a>
+  <% end %>
+
   <div class="hero-unit" id="body">
     <p>
       <%= yield %>
