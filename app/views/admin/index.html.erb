@@ -18,15 +18,17 @@
   <div class="field">Abortion <br />
     <%= radio_button_tag :abortion, "pro-life" %> Pro-Life
     <%= radio_button_tag :abortion, "pro-choice" %> Pro-Choice
-  </div> <br />
+  </div> <br /> <br />
 
-  <div class="field"> <br />
-    <%= text_field_tag :education, nil, :placeholder => "Education" %>
-  </div> <br />
+  <div class="field">Education <br />
+    <%= radio_button_tag :education, "privatization" %> Privatization
+    <%= radio_button_tag :education, "public schools" %> Public schools
+  </div> <br /> <br />
 
-  <div class="field">
-    <%= text_field_tag :energy, nil, :placeholder => "Energy" %>
-  </div> <br />
+  <div class="field">Energy <br />
+    <%= radio_button_tag :energy, "oil" %> Oil
+    <%= radio_button_tag :energy, "renewable sources" %> Renewable sources
+  </div> <br /> <br />
 
   <div class="field">
     <%= text_field_tag :entitlements, nil, :placeholder => "Entitlements" %>
@@ -45,7 +47,7 @@
     <%= radio_button_tag :gun_policy, "ban guns" %> Ban guns
     <%= radio_button_tag :gun_policy, "no concealed carry" %> No concealed carry
     <%= radio_button_tag :gun_policy, "concealed carry" %> Concealed carry
-    <%= radio_button_tag :gun_policy, "no regulations" %> No regulations
+    <%= radio_button_tag :gun_policy, "deregulate" %> Deregulate
   </div> <br /> <br />
 
   <div class="field">Health Care <br />
