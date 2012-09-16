@@ -29,7 +29,7 @@ module Api
             gsub(/=>/, ":")
           end
 
-          respond_with str.gsub(/\]\[/, ", ")
+          respond_with str.gsub(/\]\[/, ", ").gsub(/", "/, "\",\"").gsub(/}, {/, "\},\{")
         end
       end
     end
