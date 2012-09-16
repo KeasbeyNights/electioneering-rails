@@ -6,3 +6,4 @@ Kelly Ayotte	senator	New Hampshire	Republican
 John Barrasso	senator	Wyoming	Republican
 Max Baucus	senator	Montana	Democrat
 Mark Begich	senator	Alaska	Democrat
+

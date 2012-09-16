@@ -22,7 +22,7 @@ class Issue(Document):
 
 def get_titles():
   titles = {}
-  f = open('candidates.txt')
+  f = open('senators.txt')
   lines = f.readlines()
   f.close()
   for line in lines:
@@ -83,7 +83,8 @@ def parse_data(poli, data):
   filename = poli.lower().replace(' ', '') + '.txt'
   f = open(filename,'w')
   topics = ['Abortion', 'Education', 'Energy and the Environment', 'Foreign Policy', 
-    'Gay Marriage', 'Health Care', 'Immigration', 'TARP', 'Taxes', 'The Second Amendment']
+    'Gay Marriage', 'Health Care', 'Immigration', 'TARP', 'Taxes', 'The Economy','The Second Amendment']
+  print poli
   for topic in issues:
     if topic in topics:
       print topic
@@ -100,21 +101,35 @@ def parse_data(poli, data):
       data = urllib2.urlopen(url).read()
       RE = re.compile(r'<h2>Summary</h2>.*?<p.*?>(.*?)<', re.DOTALL)
       summ_list = RE.findall(data)
+      summ = ''
+      voting = False
       if len(summ_list) > 0:
         summ = summ_list[0]
       else:
-        RE2 = re.compile(r'<h2>.*?</h2><p>.*?</p><p>(.+?)</p>')
+        RE2 = re.compile(r'<div class="(yes|no)vote"><p>(.*?)</p>')
         record = RE2.findall(data)
-        summ = record[0]
-      sent = summ.split('.')
-      stance = ""
-      for sentence in sent:
-        for keyword in keywords[topic]:
-          if keyword in sentence:
-            stance = sentence
-            break
-      if stance == "" and not sum == "":
-        stance = sent[0]
+        if len(record) > 0:
+          summ = record[0][1]
+          voting = True
+      if not voting:
+        sent = summ.split('.')
+        stance = ""
+        for sentence in sent:
+          for keyword in keywords[topic]:
+            if keyword in sentence:
+              if topic == 'The Economy' or topic == 'Jobs':
+                stance = sentence
+              else:
+                stance = keyword
+                if topic == 'Immigration':
+                  if stance == 'support' or stance == 'DREAM':
+                    stance = 'more open borders'
+                  elif stance == 'against' or stance == 'oppose':
+                    stance = 'stricter borders'
+        if stance == "" and not sum == "":
+          stance = sent[0]
+      else:
+        stance = summ
       issue = Issue.objects(Q(name = topic) & Q(politician_id=titles[poli][0].id)).first()
       if issue is None:
         issue = Issue()
@@ -122,6 +137,8 @@ def parse_data(poli, data):
           issue.name = 'Gun Policy'
         elif (topic == 'TARP'):
           issue.name = 'Jobs'
+        elif topic == 'The Economy':
+          issue.name = 'Entitlements'
         else:
           issue.name = topic
       print stance
@@ -151,6 +168,7 @@ if __name__ == "__main__":
   keywords['Immigration'] = ['border', 'amnesty', 'oppose', 'support',' DREAM']
   keywords['TARP'] = ['support', 'oppose']
   keywords['Taxes'] = ['income', 'state', 'federal', 'propery', 'sales', 'sin', 'lower', 'raise', 'breaks']
+  keywords['The Economy'] = ['stimulate the economy', 'Keynesian', 'supporter', 'oppose']
   titles = get_titles()
   result = get_pages(titles.keys())
   for title in titles.keys():
