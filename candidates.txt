@@ -1,1 +1,2 @@
-Barack Obama	president	Democrat	
+Barack Obama	president	Democrat
+Mitt Romney	president	Republican
