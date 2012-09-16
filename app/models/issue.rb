@@ -135,6 +135,38 @@ class Issue
         return 'yellow'
       end
 
+    elsif (self.politician.name.eql?('Paul Ryan') && 
+      that.politician.name.eql?('Gary Johnson')) ||
+      (self.politician.name.eql?('Gary Johnson') && 
+      that.politician.name.eql?('Paul Ryan'))
+      if self.name.eql?('Entitlements')
+        return 'green'
+      elsif self.name.eql?('Foreign Policy')
+        return 'red'
+      elsif self.name.eql?('Gun Policy')
+        return 'green'
+      elsif self.name.eql?('Jobs')
+        return 'green'
+      elsif self.name.eql?('Taxes')
+        return 'yellow'
+      end
+
+    elsif (self.politician.name.eql?('Joe Biden') && 
+      that.politician.name.eql?('Gary Johnson')) ||
+      (self.politician.name.eql?('Gary Johnson') && 
+      that.politician.name.eql?('Joe Biden'))
+      if self.name.eql?('Entitlements')
+        return 'red'
+      elsif self.name.eql?('Foreign Policy')
+        return 'red'
+      elsif self.name.eql?('Gun Policy')
+        return 'red'
+      elsif self.name.eql?('Jobs')
+        return 'red'
+      elsif self.name.eql?('Taxes')
+        return 'red'
+      end
+
     end
 
     if self.name.eql?('Abortion') || self.name.eql?('Education') || 

@@ -20,11 +20,13 @@ module Api
           str = ""
 
           @issue_names.each do |n|
+            @w_issue = @white.issues.first(:name => n)
+            @b_issue = @black.issues.first(:name => n)
             res[""] = Hash.new
             res[""]["issueName"] = n
-            res[""]["whiteStance"] = @white.issues.first(:name => n).stance
-            res[""]["blackStance"] = @black.issues.first(:name => n).stance
-            res[""]["color"] = "blue"
+            res[""]["whiteStance"] = @w_issue.stance
+            res[""]["blackStance"] = @b_issue.stance
+            res[""]["color"] = @w_issue.colorize(@b_issue)
             str << res.to_a.to_s.gsub(/\["", /, "").gsub(/\]\]/, "]").
             gsub(/=>/, ":")
           end
