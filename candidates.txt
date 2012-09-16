@@ -1,2 +1,8 @@
 Barack Obama	president	US	Democrat
 Mitt Romney	governor	Massachusetts	Republican
+Daniel Akaka	senator	Hawaii	Democrat
+Lamar Alexander	senator	Tennessee	Republican
+Kelly Ayotte	senator	New Hampshire	Republican
+John Barrasso	senator	Wyoming	Republican
+Max Baucus	senator	Montana	Democrat
+Mark Begich	senator	Alaska	Democrat

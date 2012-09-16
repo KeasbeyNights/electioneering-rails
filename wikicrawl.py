@@ -3,12 +3,8 @@ import urllib2
 import urllib
 import time
 import traceback
-import wikiparse
-from bs4 import BeautifulSoup
 from mongoengine import *
 import re
-import nltk.data
-import html5lib
 
 
 class Politician(Document):
@@ -31,6 +27,7 @@ def get_titles():
   f.close()
   for line in lines:
     names = line.split('\t')
+    print names
     candidate = Politician.objects(Q(name = names[0]) & Q(candidate_type = names[1])
       & Q(party = names[3])).first()
     state = names[2]
@@ -48,12 +45,15 @@ def get_pages(names):
   data = ""
   for title in names:
     print 'fetching', title
-    firstlast = title.split(' ')
     #print firstlast
-    title_url = firstlast[0] + '_' + firstlast[1]
-    cand_type = titles[title][1]
+    title_url = title.replace(' ','_')
+    cand_url = titles[title][1]
+    if(cand_url == 'senator'):
+      cand_url = 'Senate'
     state = titles[title][2]
-    url = 'http://www.thepoliticalguide.com/Profiles/%s/%s/%s/' %(cand_type, state, title_url)
+    state_url = state.replace(' ', '_')
+    url = 'http://www.thepoliticalguide.com/Profiles/%s/%s/%s/' %(cand_url, state_url, title_url)
+    print url
     try:
       data = urllib2.urlopen(url).read()
       #print data    
@@ -82,26 +82,30 @@ def parse_data(poli, data):
   issues =  dat[0].split(', ')
   filename = poli.lower().replace(' ', '') + '.txt'
   f = open(filename,'w')
-  cand_type = titles[poli][1]
-  state = titles[poli][2]
   topics = ['Abortion', 'Education', 'Energy and the Environment', 'Foreign Policy', 
     'Gay Marriage', 'Health Care', 'Immigration', 'TARP', 'Taxes', 'The Second Amendment']
   for topic in issues:
     if topic in topics:
       print topic
       f.write(topic)
-      firstlast = poli.split(' ')
-      title_url = firstlast[0] + '_' + firstlast[1]
+      title_url = title.replace(' ','_')
+      cand_url = titles[poli][1]
+      if(cand_url == 'senator'):
+       cand_url = 'Senate'
+      state = titles[poli][2]
+      state_url = state.replace(' ', '_')
       url_topic = topic.replace(' ', '_')
-      url = 'http://www.thepoliticalguide.com/Profiles/%s/%s/%s/Views/%s' %(cand_type, 
-        state, title_url, url_topic)
+      url = 'http://www.thepoliticalguide.com/Profiles/%s/%s/%s/Views/%s/' %(cand_url, 
+        state_url, title_url, url_topic)
       data = urllib2.urlopen(url).read()
       RE = re.compile(r'<h2>Summary</h2>.*?<p.*?>(.*?)<', re.DOTALL)
       summ_list = RE.findall(data)
       if len(summ_list) > 0:
         summ = summ_list[0]
       else:
-        summ = ""
+        RE2 = re.compile(r'<h2>.*?</h2><p>.*?</p><p>(.+?)</p>')
+        record = RE2.findall(data)
+        summ = record[0]
       sent = summ.split('.')
       stance = ""
       for sentence in sent:
@@ -120,7 +124,7 @@ def parse_data(poli, data):
           issue.name = 'Jobs'
         else:
           issue.name = topic
-      print stance.encode('utf-8')
+      print stance
       issue.stance = stance
       f.write(stance)
       issue.politician_id = titles[poli][0].id
@@ -141,7 +145,7 @@ if __name__ == "__main__":
                           'charter school', 'voucher']
   keywords['Energy and the Environment'] = ['oil', 'nuclear','wind','solar','coal']
   keywords['Foreign Policy'] = ['stance', 'leader', 'sanction']
-  keywords['Gay Marriage'] = ['civil union', 'support', 'traditional', 'oppose']
+  keywords['Gay Marriage'] = ['civil union', 'support', 'traditional', 'oppose', 'against']
   keywords['The Second Amendment'] = ['support', 'oppose', 'restriction']
   keywords['Health Care'] = ['Medicare', 'Medicaid', 'public option', 'mandates']
   keywords['Immigration'] = ['border', 'amnesty', 'oppose', 'support',' DREAM']
