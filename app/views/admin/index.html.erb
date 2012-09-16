@@ -1,6 +1,6 @@
 <center><h1>Insert a New Politician</h1></center> <br />
 
-<%= form_for(@politician, :url => { :action => "create" }) do |f| %>
+<%= form_for(@politician, :url => { :action => "create", :method => "post" }) do |f| %>
   <div class="field">
     <%= text_field_tag :name, nil, :placeholder => "Candidate Name" %>
   </div> <br />

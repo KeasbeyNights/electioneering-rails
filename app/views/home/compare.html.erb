@@ -16,8 +16,8 @@
 
   <br />
 
-  <% @issue_names = @white.issues.map { |x| x.name } & 
-    @black.issues.map { |x| x.name } %>
+  <% @issue_names = @white.issues.reject {|x| x.eql?("") }.map { |x| x.name } & 
+    @black.issues.reject {|x| x.eql?("") }.map { |x| x.name } %>
   <% @issue_names.each do |name| %>
     <span class="hoverable">
         <h2 class="name"><%= name %></h2>
