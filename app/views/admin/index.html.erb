@@ -1,0 +1,88 @@
+<center><h1>Insert a New Politician</h1></center> <br />
+
+<%= form_for(@politician, :url => { :action => "create" }) do |f| %>
+  <div class="field">
+    <%= text_field_tag :name, nil, :placeholder => "Candidate Name" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :party, nil, :placeholder => "Political Party" %>
+  </div> <br />
+
+ <div class="field">Type of Candidate <br />
+    <%= radio_button_tag :candidate_type, "president", :checked => true %> Presidential
+    <%= radio_button_tag :candidate_type, "congressman" %> Congressional
+    <%= radio_button_tag :candidate_type, "governor" %> Gubernatorial
+  </div> <br /> <br />
+
+  <div class="field">Abortion <br />
+    <%= radio_button_tag :abortion, "pro-life" %> Pro-Life
+    <%= radio_button_tag :abortion, "pro-choice" %> Pro-Choice
+  </div> <br />
+
+  <div class="field"> <br />
+    <%= text_field_tag :education, nil, :placeholder => "Education" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :energy, nil, :placeholder => "Energy" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :entitlements, nil, :placeholder => "Entitlements" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :foreign_middle_east, nil, :placeholder => "Foreign - Middle East" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :foreign_europe_asia, nil, :placeholder => "Foreign - Europe / Asia" %>
+  </div> <br />
+
+  <div class="field">
+    <%= text_field_tag :foreign_rest, nil, :placeholder => "Foreign - Rest of World" %>
+  </div> <br />
+
+  <div class="field">Gay Marriage <br />
+    <%= radio_button_tag :gay_marriage, "supports" %> Supports
+    <%= radio_button_tag :gay_marriage, "opposes" %> Opposes
+  </div> <br /> <br />
+
+  <div class="field">Gun Policy <br />
+    <%= radio_button_tag :gun_policy, "ban guns" %> Ban guns
+    <%= radio_button_tag :gun_policy, "no concealed carry" %> No concealed carry
+    <%= radio_button_tag :gun_policy, "concealed carry" %> Concealed carry
+    <%= radio_button_tag :gun_policy, "no regulations" %> No regulations
+  </div> <br /> <br />
+
+  <div class="field">Health Care <br />
+    <%= radio_button_tag :healthcare, "goverment-run" %> Government-run
+    <%= radio_button_tag :healthcare, "privatized" %> Privatized
+  </div> <br /> <br />
+
+  <div class="field">Immigration <br />
+    <%= radio_button_tag :immigration, "stricter borders" %> Stricter borders
+    <%= radio_button_tag :immigration, "more open borders" %> More open borders
+  </div> <br /> <br />
+
+  <div class="field">
+    <%= text_field_tag :jobs, nil, :placeholder => "Jobs" %>
+  </div> <br />
+
+  <div class="field">Taxes <br />
+    <%= radio_button_tag :taxes, "no income tax" %> No income tax
+    <%= radio_button_tag :taxes, "raise on wealthy" %> Raise on wealthy
+    <%= radio_button_tag :taxes, "raise on middle class" %> Raise on middle class
+    <%= radio_button_tag :taxes, "decrease all tax rates" %> Decrease all tax rates
+    <%= radio_button_tag :taxes, "non-progressive" %> Non-progressive
+  </div> <br /> <br />
+
+  <div class="field">
+    <%= text_field_tag :special_interest, nil, :placeholder => "Special Interest" %>
+  </div> <br />
+
+  <div class="actions"> <br />
+    <%= f.submit "Add!" %>
+  </div>
+<% end %>

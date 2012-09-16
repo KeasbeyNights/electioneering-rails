@@ -15,5 +15,5 @@
 /tmp
 
 *.pyc
-
+/views/admin/index.html.erb
 
